@@ -2,15 +2,13 @@
 
 Comments is a Laravel package. With it you can easily implement native comments for your application.
 
-[![Become a Patron](https://img.shields.io/badge/Become%20a-Patron-f96854.svg?style=for-the-badge)](https://www.patreon.com/laravelista)
-
+[![Become a Patron](https://img.shields.io/badge/Become%20a-Patron-f96854.svg?style=for-the-badge)](https://www.patreon.com/larak)
 
 ## Overview
 
 This package can be used to comment on any model you have in your application.
 
 All comments are stored in a single table with a polymorphic relation for content and a polymorphic relation for the user who posted the comment.
-
 
 ### Features
 
@@ -33,7 +31,6 @@ All comments are stored in a single table with a polymorphic relation for conten
 - Works with custom ID columns
 - Optionally load package migrations [NEW]
 - Configure maximum indentation level [NEW]
-
 
 ### Screenshots
 
@@ -59,7 +56,6 @@ Two comments from different users:
 
 ![](https://i.imgur.com/2P5u25x.png)
 
-
 ### Tutorials & articles
 
 I plan to expand this chapter with more tutorials and articles. If you write something about this package let me know, so that I can update this chapter.
@@ -68,15 +64,13 @@ I plan to expand this chapter with more tutorials and articles. If you write som
 
 - [Adding comments to your Laravel application](https://www.youtube.com/watch?v=YhA0CSX1HIg) by Andre Madarang.
 
-
 ## Installation
 
 From the command line:
 
 ```bash
-composer require laravelista/comments
+composer require larak/comments
 ```
-
 
 ### Run migrations
 
@@ -86,13 +80,12 @@ We need to create the table for comments.
 php artisan migrate
 ```
 
-
 ### Add Commenter trait to your User model
 
 Add the `Commenter` trait to your User model so that you can retrieve the comments for a user:
 
 ```php
-use Laravelista\Comments\Commenter;
+use Larak\Comments\Commenter;
 
 class User extends Authenticatable
 {
@@ -100,13 +93,12 @@ class User extends Authenticatable
 }
 ```
 
-
 ### Add Commentable trait to models
 
 Add the `Commentable` trait to the model for which you want to enable comments for:
 
 ```php
-use Laravelista\Comments\Commentable;
+use Larak\Comments\Commentable;
 
 class Product extends Model
 {
@@ -114,42 +106,37 @@ class Product extends Model
 }
 ```
 
-
 ### Publish Config & configure (optional)
 
 Publish the config file (optional):
 
 ```bash
-php artisan vendor:publish --provider="Laravelista\Comments\ServiceProvider" --tag=config
+php artisan vendor:publish --provider="Larak\Comments\ServiceProvider" --tag=config
 ```
-
 
 ### Publish views (customization)
 
 The default UI is made for Bootstrap 4, but you can change it however you want.
 
 ```bash
-php artisan vendor:publish --provider="Laravelista\Comments\ServiceProvider" --tag=views
+php artisan vendor:publish --provider="Larak\Comments\ServiceProvider" --tag=views
 ```
-
 
 ### Publish Migrations (customization)
 
 You can publish migration to allow you to have more control over your table
 
 ```bash
-php artisan vendor:publish --provider="Laravelista\Comments\ServiceProvider" --tag=migrations
+php artisan vendor:publish --provider="Larak\Comments\ServiceProvider" --tag=migrations
 ```
-
 
 ### Publish translations (customization)
 
 The package currently only supports English, but I am open to PRs for other languages.
 
 ```bash
-php artisan vendor:publish --provider="Laravelista\Comments\ServiceProvider" --tag=translations
+php artisan vendor:publish --provider="Larak\Comments\ServiceProvider" --tag=translations
 ```
-
 
 ## Usage
 
@@ -163,7 +150,6 @@ In the example above we are setting the `commentable_type` to the class of the b
 
 If you open the page containing the view where you have placed the above code, you should see a working comments form.
 
-
 ### View only approved comments
 
 To view only approved comments, use this code:
@@ -174,7 +160,6 @@ To view only approved comments, use this code:
     'approved' => true
 ])
 ```
-
 
 ### Paginate comments
 
@@ -213,27 +198,24 @@ You can configure the maximum indentation level like so:
 ])
 ```
 
-
 ## Events
 
 This package fires events to let you know when things happen.
 
-- `Laravelista\Comments\Events\CommentCreated`
-- `Laravelista\Comments\Events\CommentUpdated`
-- `Laravelista\Comments\Events\CommentDeleted`
-
+- `Larak\Comments\Events\CommentCreated`
+- `Larak\Comments\Events\CommentUpdated`
+- `Larak\Comments\Events\CommentDeleted`
 
 ## REST API
 
 To change the controller or the routes, see the config.
 
 ```
-Route::post('comments', '\Laravelista\Comments\CommentController@store');
-Route::delete('comments/{comment}', '\Laravelista\Comments\CommentController@destroy');
-Route::put('comments/{comment}', '\Laravelista\Comments\CommentController@update');
-Route::post('comments/{comment}', '\Laravelista\Comments\CommentController@reply');
+Route::post('comments', '\Larak\Comments\CommentController@store');
+Route::delete('comments/{comment}', '\Larak\Comments\CommentController@destroy');
+Route::put('comments/{comment}', '\Larak\Comments\CommentController@update');
+Route::post('comments/{comment}', '\Larak\Comments\CommentController@reply');
 ```
-
 
 ### POST `/comments`
 
@@ -245,7 +227,6 @@ Request data:
 'message' => 'required|string'
 ```
 
-
 ### PUT `/comments/{comment}`
 
 - {comment} - Comment ID.
@@ -255,7 +236,6 @@ Request data:
 ```
 'message' => 'required|string'
 ```
-
 
 ### POST `/comments/{comment}`
 
@@ -267,26 +247,21 @@ Request data:
 'message' => 'required|string'
 ```
 
-
 ## Upgrading from older versions (troubleshoot)
 
 Before creating an issue, read [this](./UPGRADE.md).
-
 
 ## Sponsors & Backers
 
 I would like to extend my thanks to the following sponsors & backers for funding my open-source journey. If you are interested in becoming a sponsor or backer, please visit the [Backers page](https://mariobasic.com/backers).
 
-
 ## Contributing
 
 Thank you for considering contributing to Comments! The contribution guide can be found [Here](https://mariobasic.com/contributing).
 
-
 ## Code of Conduct
 
 In order to ensure that the open-source community is welcoming to all, please review and abide by the [Code of Conduct](https://mariobasic.com/code-of-conduct).
-
 
 ## License
 

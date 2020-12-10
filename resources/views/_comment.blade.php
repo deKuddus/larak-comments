@@ -5,28 +5,55 @@
 @endphp
 
 <div id="comment-{{ $comment->getKey() }}" class="media">
-    <img class="mr-3" src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email ?? $comment->guest_email) }}.jpg?s=64" alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar">
+    <img class="mr-3"  src="https://ui-avatars.com/api/?name={{$comment->commenter->first_name}}+{{$comment->commenter->last_name}}&&rounded=true&&bold=true&&background={{rand_color()}}&&color=ffffff" alt="{{ $comment->commenter->first_name.' '.$comment->commenter->last_name ?? $comment->guest_name }} Avatar">
     <div class="media-body">
-        <h5 class="mt-0 mb-1">{{ $comment->commenter->name ?? $comment->guest_name }} <small class="text-muted">- {{ $comment->created_at->diffForHumans() }}</small></h5>
-        <div style="white-space: pre-wrap;">{!! $markdown->line($comment->comment) !!}</div>
+        <h5 class="mt-0 mb-1">{{ $comment->commenter->first_name.' '.$comment->commenter->last_name ?? $comment->guest_name }} <small class="text-muted">- {{ $comment->created_at->diffForHumans() }}</small></h5>
+        <div style="white-space: pre-wrap;">
+            @if ($comment->ratings == 0)
+                {{trans('comments.no_ratings')}}
+            @elseif($comment->ratings == 1)
+                @includeIf('comments::1')
+            @elseif($comment->ratings == 1.5)
+                @includeIf('comments::1_5')
+            @elseif($comment->ratings == 2)
+                @includeIf('comments::2')
+            @elseif($comment->ratings == 2.5)
+                @includeIf('comments::2_5')
+            @elseif($comment->ratings == 3)
+                @includeIf('comments::3')
+            @elseif($comment->ratings == 3.5)
+                @includeIf('comments::3_5')
+            @elseif($comment->ratings == 4)
+                @includeIf('comments::4')
+            @elseif($comment->ratings == 4.5)
+                @includeIf('comments::4_5')
+            @elseif($comment->ratings == 5)
+                @includeIf('comments::5')
+            @endif
+            {!! $markdown->line($comment->comment) !!}
+        </div>
 
         <div>
-            @can('reply-to-comment', $comment)
+
+            @auth('customer')
                 <button data-toggle="modal" data-target="#reply-modal-{{ $comment->getKey() }}" class="btn btn-sm btn-link text-uppercase">@lang('comments::comments.reply')</button>
             @endcan
-            @can('edit-comment', $comment)
-                <button data-toggle="modal" data-target="#comment-modal-{{ $comment->getKey() }}" class="btn btn-sm btn-link text-uppercase">@lang('comments::comments.edit')</button>
-            @endcan
-            @can('delete-comment', $comment)
+
+            @if($comment->commenter_id == auth()->guard('customer')->id())
+                @auth('customer')
+                    <button data-toggle="modal" data-target="#comment-modal-{{ $comment->getKey() }}" class="btn btn-sm btn-link text-uppercase">@lang('comments::comments.edit')</button>
+                @endcan
+             @endif
+            @if($comment->commenter_id == auth()->guard('customer')->id())
                 <a href="{{ route('comments.destroy', $comment->getKey()) }}" onclick="event.preventDefault();document.getElementById('comment-delete-form-{{ $comment->getKey() }}').submit();" class="btn btn-sm btn-link text-danger text-uppercase">@lang('comments::comments.delete')</a>
                 <form id="comment-delete-form-{{ $comment->getKey() }}" action="{{ route('comments.destroy', $comment->getKey()) }}" method="POST" style="display: none;">
                     @method('DELETE')
                     @csrf
                 </form>
-            @endcan
+            @endif
         </div>
 
-        @can('edit-comment', $comment)
+        @if($comment->commenter_id == auth()->guard('customer')->id(0))
             <div class="modal fade" id="comment-modal-{{ $comment->getKey() }}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -56,7 +83,7 @@
             </div>
         @endcan
 
-        @can('reply-to-comment', $comment)
+        @if($comment)
             <div class="modal fade" id="reply-modal-{{ $comment->getKey() }}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -83,7 +110,7 @@
                     </div>
                 </div>
             </div>
-        @endcan
+        @endif
 
         <br />{{-- Margin bottom --}}
 

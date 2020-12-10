@@ -27,6 +27,7 @@ class CreateCommentsTable extends Migration
             $table->string("commentable_id");
             $table->index(["commentable_type", "commentable_id"]);
 
+            $table->string('ratings')->nullable();
             $table->text('comment');
 
             $table->boolean('approved')->default(true);
@@ -34,7 +35,7 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('child_id')->nullable();
             $table->foreign('child_id')->references('id')->on('comments')->onDelete('cascade');
 
-			$table->softDeletes();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

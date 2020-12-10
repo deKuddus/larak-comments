@@ -58,7 +58,7 @@
     {{ $grouped_comments->links() }}
 @endisset
 
-@auth
+@auth('customer')
     @include('comments::_form')
 @elseif(Config::get('comments.guest_commenting') == true)
     @include('comments::_form', [
@@ -69,7 +69,8 @@
         <div class="card-body">
             <h5 class="card-title">@lang('comments::comments.authentication_required')</h5>
             <p class="card-text">@lang('comments::comments.you_must_login_to_post_a_comment')</p>
-            <a href="{{ route('login') }}" class="btn btn-primary">@lang('comments::comments.log_in')</a>
+            <br>
+            <a href="{{ route('customer.login') }}" class="btn btn-normal">@lang('comments::comments.log_in')</a>
         </div>
     </div>
 @endauth

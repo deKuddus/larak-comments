@@ -6,16 +6,16 @@ Comments is a Laravel package. With it you can easily implement native comments 
 
 ## Overview
 
-This package can be used to comment on any model you have in your application.
+This package can be used to comment and rating on any model you have in your application.
 
-All comments are stored in a single table with a polymorphic relation for content and a polymorphic relation for the user who posted the comment.
+All comments and ratings are stored in a single table with a polymorphic relation for content and a polymorphic relation for the user who posted the comment.
 
 ### Features
 
-- View comments
-- Create comments
-- Delete comments
-- Edit comments
+- View comments & ratings
+- Create comments & ratings
+- Delete comments & ratings
+- Edit comments & ratings
 - Reply to comments
 - Authorization rules
 - Support localization
@@ -32,29 +32,6 @@ All comments are stored in a single table with a polymorphic relation for conten
 - Optionally load package migrations [NEW]
 - Configure maximum indentation level [NEW]
 
-### Screenshots
-
-Here are a few screenshots.
-
-No comments & guest:
-
-![](https://i.imgur.com/9df4Xun.png)
-
-No comments & logged in:
-
-![](https://i.imgur.com/ALI6GbR.png)
-
-One comment:
-
-![](https://i.imgur.com/9wBNiy2.png)
-
-One comment edit form:
-
-![](https://i.imgur.com/cxDh34O.png)
-
-Two comments from different users:
-
-![](https://i.imgur.com/2P5u25x.png)
 
 ### Tutorials & articles
 

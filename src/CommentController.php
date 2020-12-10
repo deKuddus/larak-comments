@@ -65,6 +65,7 @@ class CommentController extends Controller implements CommentControllerInterface
 
         $comment->commentable()->associate($model);
         $comment->comment = $request->message;
+        $comment->ratings = $request->ratings;
         $comment->approved = !Config::get('comments.approval_required');
         $comment->save();
 
@@ -83,7 +84,8 @@ class CommentController extends Controller implements CommentControllerInterface
         ])->validate();
 
         $comment->update([
-            'comment' => $request->message
+            'comment' => $request->message,
+            'ratings' => $request->ratings ? $request->ratings : $comment->ratings
         ]);
 
         return Redirect::to(URL::previous() . '#comment-' . $comment->getKey());

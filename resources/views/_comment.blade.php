@@ -8,29 +8,7 @@
     <img class="mr-3"  src="https://ui-avatars.com/api/?name={{$comment->commenter->first_name}}+{{$comment->commenter->last_name}}&&rounded=true&&bold=true&&background={{rand_color()}}&&color=ffffff" alt="{{ $comment->commenter->first_name.' '.$comment->commenter->last_name ?? $comment->guest_name }} Avatar">
     <div class="media-body">
         <h5 class="mt-0 mb-1">{{ $comment->commenter->first_name.' '.$comment->commenter->last_name ?? $comment->guest_name }} <small class="text-muted">- {{ $comment->created_at->diffForHumans() }}</small></h5>
-        <div style="white-space: pre-wrap;">
-            @if ($comment->ratings == 0)
-                {{trans('comments.no_ratings')}}
-            @elseif($comment->ratings == 1)
-                @includeIf('comments::1')
-            @elseif($comment->ratings == 1.5)
-                @includeIf('comments::1_5')
-            @elseif($comment->ratings == 2)
-                @includeIf('comments::2')
-            @elseif($comment->ratings == 2.5)
-                @includeIf('comments::2_5')
-            @elseif($comment->ratings == 3)
-                @includeIf('comments::3')
-            @elseif($comment->ratings == 3.5)
-                @includeIf('comments::3_5')
-            @elseif($comment->ratings == 4)
-                @includeIf('comments::4')
-            @elseif($comment->ratings == 4.5)
-                @includeIf('comments::4_5')
-            @elseif($comment->ratings == 5)
-                @includeIf('comments::5')
-            @endif
-            {!! $markdown->line($comment->comment) !!}
+        <div style="white-space: pre-wrap;">{!! $markdown->line($comment->comment) !!}
         </div>
 
         <div>

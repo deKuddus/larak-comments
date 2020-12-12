@@ -20,5 +20,4 @@ return [
     'enter_your_message_here' => 'Enter your message here:',
     'enter_your_email_here' => 'Enter your email here:',
     'enter_your_name_here' => 'Enter your name here:',
-    'no_ratings' => 'No ratings given'
 ];

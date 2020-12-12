@@ -26,8 +26,6 @@ class CreateCommentsTable extends Migration
             $table->string("commentable_type");
             $table->string("commentable_id");
             $table->index(["commentable_type", "commentable_id"]);
-
-            $table->string('ratings')->nullable();
             $table->text('comment');
 
             $table->boolean('approved')->default(true);

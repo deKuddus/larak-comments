@@ -13,9 +13,6 @@
         <form method="POST" action="{{ route('comments.store') }}">
             @csrf
             {{-- @honeypot --}}
-            <label for="">Rate This Product</label>
-            <div class="my-rating"></div>
-            <input type="hidden" name="ratings" id="ratings" value="">
             <input type="hidden" name="commentable_type" value="\{{ get_class($model) }}" />
             <input type="hidden" name="commentable_id" value="{{ $model->getKey() }}" />
 
